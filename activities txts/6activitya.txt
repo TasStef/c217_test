@@ -1,0 +1,19 @@
+#!/bin/bash
+
+read -p "enter a number for a: " a
+read -p " enter a number for b: " b
+
+
+if [[ -n ${a//[0-99999999]/} ]]; then
+    echo "Input accepts only numbers" & exit 1;
+elif [[ -n ${b//[0-99999999]/} ]]; then
+    echo "Input accepts only numbers" & exit 1;
+fi
+
+if [[ "$a" -gt "$b" ]]; then
+    echo "True"
+elif [[ "$a" -lt "$b" ]]; then
+    echo "False"
+fi
+
+exit 0

@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+count=1
+while [[ $count -le 5 ]]; do
+  read -p "Enter Number $count: " numbers[$count-1]
+  let count++
+done
+
+read -p "Do you want to add more numbers? (y) (n)): " answer
+while [ $answer ==  "y" ]; do
+  read -p "Enter Number $count: " numbers[$count-1]
+  let count++
+ 
+  if [ $count -gt 10 ]; then
+    break
+  fi
+  read -p "Do you want to add more numbers? (y) (n)): " answer
+done
+
+product=1
+for int in ${numbers[@]}; do
+  let "product = $product * $int"
+done
+echo "Product of numbers: $product"
+
+sum=0
+for int in ${numbers[@]}; do
+  let "sum = $sum + $int"
+done
+avg=`echo "scale=2; $sum/${#numbers[@]}" | bc`; echo $var
+echo "The average of numbers is: $avg"
+echo "The sum of numbers is: $sum"
+
+#Sorting array of numbers
+arraySize=${#numbers[@]}
+for((i=1;i<$arraySize;i++)); do
+    for((j=$i;j>0;j--)); do
+        if [ "${numbers[$j]}" -lt "${numbers[$j-1]}" ]; then
+            temp="${numbers[$j]}"
+            numbers[$j]=${numbers[$j-1]}
+            numbers[$j-1]=$temp
+        else
+            break
+        fi
+    done
+done
+
+echo "Minimun of numbers: ${numbers[0]}"
+echo "Maximum of numbers: ${numbers[${#numbers[@]}-1]}"
+
+echo "Values that user entered: ${numbers[@]}"
+
+exit 0

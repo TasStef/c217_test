@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+
+
+if test -d "FixGen/logs"; then
+    echo "Directory FixGen/logs exists"
+elif test -d "FixGen"; then
+    mkdir FixGen/logs
+else
+    mkdir FixGen
+    mkdir FixGen/logs
+fi
+
+cd FixGen/logs
+
+numFiles=0
+for file in *.log; do
+    let numFiles++
+done
+
+var=$(ls -tr | head -n$(expr $numFiles - 3))
+echo var -$var
+
+tar -cvf logs.tar $var 
+
+# To go back to main directory where Gen file is
+# Could also do with a path like: cd ~
+cd ..
+cd .. 
+pwd
+
+./FixGenerator.sh 
+mv *.log FixGen/logs
+
+exit 0

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+#Run script by giving file name and number of lines as variables: ./10activity fileName numverOflines
+
+file=$1
+
+if  test -f "$file" ; then
+    echo "File $file exists"
+    exit 1
+else
+    touch $file
+    echo "File $file was created"
+fi
+
+numOfLines=$2
+for ((i=0;i<=numOfLines;i++)); do
+    newNumber=$(expr $RANDOM)
+    echo $newNumber >> $file
+done
+echo "$numOfLines random numbers were generated"
+
+exit 0

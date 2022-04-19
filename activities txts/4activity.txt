@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+
+read -p "Give your password: " password
+
+
+flagLowercase=0
+flagUpercase=0
+flagNumbers=0
+flagLength=0
+
+#Checking for the cases
+len=${#password}
+if [[ $len -ge 8 ]]; then
+    flagLength=1
+    echo "Password size: Check"
+else
+    echo "Password size: Fail"
+fi
+
+echo "$password" | grep -q [A-Z]
+if test $? -eq 0 ; then
+    flagUpercase=1
+    echo "Upercase letters: Check"
+else
+    echo "Upercase letters: Fail"
+fi
+
+echo "$password" | grep -q [a-z]
+if  test $? -eq 0; then
+    flagLowercase=1
+    echo "Lowercase letters: Check"
+else 
+    echo "Lowercase letters: Fail"
+fi
+
+echo "$password" | grep -q [A-Z]
+if [[ "${password:$i:1}" =~ [0-9]  ]]; then
+    flagNumbers=1
+    echo "Numbers: Check"
+else 
+    echo "Numbers: Fail"
+fi
+
+
+# Printing the result
+if  [[ $flagLowercase == 1 ]] &&  [[ $flagUpercase == 1 ]] && [[ $flagLength == 1 ]] && [[ $flagNumbers == 1 ]] ; then
+    echo "Your password is strong"
+else
+   echo "Your password is not strong enough"
+fi
+   
+exit 0
